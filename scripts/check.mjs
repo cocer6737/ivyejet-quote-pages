@@ -36,4 +36,17 @@ if (markup.includes("/api/public/")) {
   throw new Error("Static quote still points to a server-only API route.");
 }
 
+if (!markup.includes('<span class="mobile-label">文字</span>')) {
+  throw new Error("The mobile text-download control is missing.");
+}
+
+const cssReference = markup.match(/href="(\/ivyejet-quote-pages\/_next\/static\/css\/[^"]+\.css)"/)?.[1];
+if (!cssReference) {
+  throw new Error("The quote stylesheet reference is missing.");
+}
+const stylesheet = await readFile(join(site, cssReference.replace("/ivyejet-quote-pages/", "")), "utf8");
+if (!stylesheet.includes("translate(-50%,-50%) rotate(-90deg)")) {
+  throw new Error("The centered English itinerary-label rule is missing.");
+}
+
 console.log("IVYEJET GitHub Pages export checks passed.");
