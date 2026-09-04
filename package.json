@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "export": "node scripts/export-from-app.mjs",
     "check": "node scripts/check.mjs"
   }
 }

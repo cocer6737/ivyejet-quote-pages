@@ -9,14 +9,21 @@ for (const file of [
   "index.html",
   ".nojekyll",
   "brand/Image9.png",
+  "brand/ivyejet-slogan-white.png",
   "brand/itinerary-jet.png",
   "aircraft/cabin-01.jpg",
-  "downloads/quote-zh.pdf",
-  "downloads/quote-zht.pdf",
-  "downloads/quote-en.pdf",
-  "downloads/quote-zh.txt",
-  "downloads/quote-zht.txt",
-  "downloads/quote-en.txt"
+  "downloads/quote-zh-usd.pdf",
+  "downloads/quote-zht-usd.pdf",
+  "downloads/quote-en-usd.pdf",
+  "downloads/quote-zh-usd.txt",
+  "downloads/quote-zht-usd.txt",
+  "downloads/quote-en-usd.txt",
+  "downloads/quote-zh-cny.pdf",
+  "downloads/quote-zht-cny.pdf",
+  "downloads/quote-en-cny.pdf",
+  "downloads/quote-zh-cny.txt",
+  "downloads/quote-zht-cny.txt",
+  "downloads/quote-en-cny.txt"
 ]) {
   await access(join(site, file));
 }
@@ -24,8 +31,11 @@ for (const file of [
 const markup = await readFile(join(site, "index.html"), "utf8");
 for (const reference of [
   "/ivyejet-quote-pages/_next/",
-  "/ivyejet-quote-pages/downloads/quote-zh.pdf",
-  "/ivyejet-quote-pages/downloads/quote-zh.txt"
+  "/ivyejet-quote-pages/downloads/quote-zh-usd.pdf",
+  "/ivyejet-quote-pages/downloads/quote-zh-usd.txt",
+  "方案一",
+  "吸烟",
+  "查看完整图片"
 ]) {
   if (!markup.includes(reference)) {
     throw new Error(`Static quote is missing ${reference}.`);
@@ -45,8 +55,8 @@ if (!cssReference) {
   throw new Error("The quote stylesheet reference is missing.");
 }
 const stylesheet = await readFile(join(site, cssReference.replace("/ivyejet-quote-pages/", "")), "utf8");
-if (!stylesheet.includes("translate(-50%,-50%) rotate(-90deg)")) {
-  throw new Error("The centered English itinerary-label rule is missing.");
+if (!stylesheet.includes("translate(-50%,-50%) rotate(90deg)")) {
+  throw new Error("The centered itinerary barcode rule is missing.");
 }
 
 console.log("IVYEJET GitHub Pages export checks passed.");
